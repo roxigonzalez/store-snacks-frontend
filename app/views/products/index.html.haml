@@ -1,0 +1,17 @@
+%h1
+  Products List
+%hr
+
+- if products.present?
+  = render "resources", products: products
+  .row
+    .col-xs-6.text-left
+      = link_to "Prev", products_path(page: "#{params[:page].to_i-1}"), class: 'btn btn-link' if params[:page].present? && params[:page].to_i-1 != 0
+    .col-xs-6.text-right
+      = link_to "Next", products_path(page: "#{next_page(params[:page].present? ? params[:page] : 1)}" ), class: 'btn btn-link' if next_page(params[:page]) < 5 && products.count == 10
+- else
+  No results found
+
+%hr
+
+= link_to "Go to search products", search_products_path, class: "btn btn-info btn-block"

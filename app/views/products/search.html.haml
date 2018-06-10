@@ -1,0 +1,26 @@
+%h1
+
+  Search products
+
+= form_tag "", method: :get do
+  .form-group
+    = text_field_tag "name", nil, class: 'form-control', placeholder: "Search by product name"
+  .text-right
+    = submit_tag "Search", class: "btn btn-primary"
+
+%hr
+
+- if @products
+  = render "resources", products: @products
+  .row
+    .col-xs-6.text-left
+      = link_to "Prev", search_products_path(page: "#{params[:page].to_i-1}"), class: 'btn btn-link pull-left' if params[:page].present? && params[:page].to_i-1 != 0
+    .col-xs-6.text-right
+      = link_to "Next", search_products_path(page: "#{next_page(params[:page].present? ? params[:page] : 1)}" ), class: 'btn btn-link pull-right' if next_page(params[:page]) < 5 && @products.count == 10
+- else
+  No results found
+
+
+%hr
+
+= link_to "Go to product list", products_path, class: "btn btn-info btn-block"

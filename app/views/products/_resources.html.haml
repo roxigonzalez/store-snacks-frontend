@@ -1,0 +1,22 @@
+%table.table
+  %thead
+    %tr
+      %th
+        ID
+      %th
+        Name
+      %th
+        Price
+      %th
+        Stock
+  %tbody
+    - products.each do |product|
+      %tr
+        %td
+          = product["id"]
+        %td
+          = product["name"]
+        %td
+          = number_to_currency product["price"]
+        %td
+          = product["stock"]
